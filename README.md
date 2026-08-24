@@ -98,22 +98,16 @@ Open `http://localhost:8080` for the Fitness Assistant UI. The frontend containe
 
 ## Demo Screenshots
 
-### Initial UI
 ![First screenshot](outputs/first.png)
 
-### Chat interaction
 ![Second screenshot](outputs/second.png)
 
-### Query response
 ![Third screenshot](outputs/third.png)
 
-### Generated answer
 ![Fourth screenshot](outputs/fourth.png)
 
-### Follow-up question
 ![Fifth screenshot](outputs/fifth.png)
 
-### Final output
 ![Sixth screenshot](outputs/sixth.png)
 
 ## Design choice
