@@ -96,6 +96,26 @@ docker compose up --build
 
 Open `http://localhost:8080` for the Fitness Assistant UI. The frontend container serves the Vite build through Nginx and proxies `/api` to FastAPI. The backend is also available at `http://localhost:8001`, with `GET /health` exposed for container health checks. Compose mounts your local `~/.aws` directory into the backend container as read-only and uses `AWS_PROFILE` to select the profile. The profile needs `bedrock:Retrieve` and `bedrock:InvokeModel` permissions. Never commit credentials to this repository.
 
+## Demo Screenshots
+
+### Initial UI
+![First screenshot](outputs/first.png)
+
+### Chat interaction
+![Second screenshot](outputs/second.png)
+
+### Query response
+![Third screenshot](outputs/third.png)
+
+### Generated answer
+![Fourth screenshot](outputs/fourth.png)
+
+### Follow-up question
+![Fifth screenshot](outputs/fifth.png)
+
+### Final output
+![Sixth screenshot](outputs/sixth.png)
+
 ## Design choice
 
 This first implementation uses **retrieve, then generate** so the retrieved context and prompt are easy to inspect. Because this is a managed Knowledge Base, the client uses `managedSearchConfiguration`. Bedrock's `RetrieveAndGenerate` can replace this later when managed session handling and built-in citations are more valuable than explicit control.
