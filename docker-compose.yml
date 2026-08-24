@@ -1,0 +1,33 @@
+services:
+  backend:
+    build:
+      context: ./backend
+    environment:
+      AWS_REGION: ${AWS_REGION:-us-east-1}
+      BEDROCK_KNOWLEDGE_BASE_ID: ${BEDROCK_KNOWLEDGE_BASE_ID}
+      BEDROCK_MODEL_ID: ${BEDROCK_MODEL_ID}
+      BEDROCK_RETRIEVAL_RESULTS: ${BEDROCK_RETRIEVAL_RESULTS:-15}
+      RAG_SOURCE_BUCKET: ${RAG_SOURCE_BUCKET:-fitness-assistant-test-saurav}
+      RAG_SOURCE_KEY: ${RAG_SOURCE_KEY:-data.csv}
+      CORS_ORIGINS: ${CORS_ORIGINS:-http://localhost:5173,http://localhost:8080}
+      AWS_PROFILE: ${AWS_PROFILE:-default}
+    volumes:
+      - ${HOME}/.aws:/root/.aws:ro
+    ports:
+      - "8001:8000"
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/health')"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  frontend:
+    build:
+      context: ./frontend
+      args:
+        VITE_API_URL: /api
+    depends_on:
+      backend:
+        condition: service_healthy
+    ports:
+      - "8080:80"
